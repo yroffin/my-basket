@@ -63,4 +63,10 @@ if __name__ in {"__main__", "__mp_main__"}:
         client_kwargs={'scope': config['google']['scope']},
     )
 
-    ui.run(host=config['ui']['host'], storage_secret=config['storage']['secret'])
+    ui.run(
+        uvicorn_reload_includes=config['ui']['uvicorn_reload_includes'],
+        reload=config['ui']['reload'],
+        reconnect_timeout=config['ui']['reconnect_timeout'],
+        host=config['ui']['host'],
+        storage_secret=config['storage']['secret']
+    )
