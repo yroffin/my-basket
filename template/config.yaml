@@ -1,7 +1,5 @@
 config:
   google:
-    client-id: xxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com
-    client-secret: xxxxxxxxxxxxxxxxxxx
     scope: openid email profile
     server_metadata_url: https://accounts.google.com/.well-known/openid-configuration
   storage:

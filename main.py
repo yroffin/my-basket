@@ -58,8 +58,8 @@ if __name__ in {"__main__", "__mp_main__"}:
     oauth.register(
         name='google',
         server_metadata_url=config['google']['server_metadata_url'],
-        client_id=config['google']['client-id'],
-        client_secret=config['google']['client-secret'],
+        client_id=os.environ['CONFIG_GOOGLE_CLIENT_ID'],
+        client_secret=os.environ['CONFIG_GOOGLE_CLIENT_SECRET'],
         client_kwargs={'scope': config['google']['scope']},
     )
 
