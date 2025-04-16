@@ -31,10 +31,10 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: ${{ github.event_name == 'push' }} # Only push on push events
+          # dockerhub-username/my-basket:latest # Replace with your Docker Hub username and image name
+          # dockerhub-username/my-basket:${{ github.sha }}
+          # For GitHub Container Registry (GHCR):
           tags: |
-            # dockerhub-username/my-basket:latest # Replace with your Docker Hub username and image name
-            # dockerhub-username/my-basket:${{ github.sha }}
-            # For GitHub Container Registry (GHCR):
             ghcr.io/${{ github.repository }}/my-basket:latest
             ghcr.io/${{ github.repository }}/my-basket:${{ github.sha }}
           build-args:
