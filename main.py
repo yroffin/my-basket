@@ -61,6 +61,7 @@ if __name__ in {"__main__", "__mp_main__"}:
         client_id=os.environ['CONFIG_GOOGLE_CLIENT_ID'],
         client_secret=os.environ['CONFIG_GOOGLE_CLIENT_SECRET'],
         client_kwargs={'scope': config['google']['scope']},
+        redirect_uri=config['google']['redirect_uri']
     )
 
     ui.run(

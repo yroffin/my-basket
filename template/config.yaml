@@ -2,6 +2,7 @@ config:
   google:
     scope: openid email profile
     server_metadata_url: https://accounts.google.com/.well-known/openid-configuration
+    redirect_uri: http://localhost:8080
   storage:
     secret: my secret
   logging:
