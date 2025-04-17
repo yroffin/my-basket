@@ -3,6 +3,7 @@ from fastapi import Request
 from fastapi.responses import RedirectResponse
 from nicegui import app, ui
 from authlib.integrations.starlette_client import OAuth, OAuthError
+import os
 
 oauth = OAuth()
 
@@ -35,7 +36,11 @@ async def render(request: Request) -> Optional[RedirectResponse]:
         ui.button(icon='savings',
             on_click=lambda: ui.navigate.to('/shopping/list'))
     with ui.footer().style('background-color: #3874c8'):
-        ui.label('FOOTER')
+        if 'HOSTNAME' in os.environ:
+            ui.label(os.environ['HOSTNAME'])
+        else:
+            ui.label("no hostname")
+
 
     if not user_data:
         url = request.url_for('google_oauth')
