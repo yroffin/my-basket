@@ -6,35 +6,11 @@ from fastapi import Request
 from starlette.responses import RedirectResponse
 
 from nicegui import app, ui
-
-oauth = OAuth()
-
-@app.get('/auth')
-async def google_oauth(request: Request) -> RedirectResponse:
-    try:
-        user_data = await oauth.google.authorize_access_token(request)
-    except OAuthError as e:
-        print(f'OAuth error: {e}')
-        return RedirectResponse('/')  # or return an error page/message
-    app.storage.user['user_data'] = user_data
-    return RedirectResponse('/')
-
-
-def logout() -> None:
-    del app.storage.user['user_data']
-    ui.navigate.to('/')
-
+from pages import shopping_list, home
 
 @ui.page('/')
 async def main(request: Request) -> Optional[RedirectResponse]:
-    user_data = app.storage.user.get('user_data', None)
-    if user_data:
-        ui.label(f'Welcome {user_data.get("userinfo", {}).get("name", "")}!')
-        ui.button('Logout', on_click=logout)
-        return None
-    else:
-        url = request.url_for('google_oauth')
-        return await oauth.google.authorize_redirect(request, url)
+    return await home.render(request)
 
 import os
 import logging
@@ -55,7 +31,7 @@ if __name__ in {"__main__", "__mp_main__"}:
 
     # Get the credentials from the Google Cloud Console
     # https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid#get_your_google_api_client_id
-    oauth.register(
+    home.oauth.register(
         name='google',
         server_metadata_url=config['google']['server_metadata_url'],
         client_id=os.environ['CONFIG_GOOGLE_CLIENT_ID'],

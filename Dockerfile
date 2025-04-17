@@ -2,8 +2,8 @@ FROM python:alpine
 
 WORKDIR /app
 
-RUN pip3 install nicegui
-RUN pip3 install authlib
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
 
 ENV PYTHONUNBUFFERED=1
 COPY template/config.yaml /tmp
